@@ -91,9 +91,17 @@ app.add_middleware(
 
 # Load model and preprocessors at startup
 import os
+import sys
 
 # Get the directory where this script is located
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Custom unpickler to handle the LinearRegressionGD class
+class CustomUnpickler(pickle.Unpickler):
+    def find_class(self, module, name):
+        if name == 'LinearRegressionGD':
+            return LinearRegressionGD
+        return super().find_class(module, name)
 
 try:
     model_path = os.path.join(BASE_DIR, 'best_model.pkl')
@@ -105,7 +113,7 @@ try:
     print(f"Loading models from: {BASE_DIR}")
     
     with open(model_path, 'rb') as f:
-        model = pickle.load(f)
+        model = CustomUnpickler(f).load()
     with open(scaler_path, 'rb') as f:
         scaler = pickle.load(f)
     with open(encoder_path, 'rb') as f:
