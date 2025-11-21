@@ -28,16 +28,29 @@ app.add_middleware(
 )
 
 # Load model and preprocessors at startup
+import os
+
+# Get the directory where this script is located
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 try:
-    with open('best_model.pkl', 'rb') as f:
+    model_path = os.path.join(BASE_DIR, 'best_model.pkl')
+    scaler_path = os.path.join(BASE_DIR, 'scaler.pkl')
+    encoder_path = os.path.join(BASE_DIR, 'label_encoder.pkl')
+    features_path = os.path.join(BASE_DIR, 'feature_names.pkl')
+    metadata_path = os.path.join(BASE_DIR, 'model_metadata.pkl')
+    
+    print(f"Loading models from: {BASE_DIR}")
+    
+    with open(model_path, 'rb') as f:
         model = pickle.load(f)
-    with open('scaler.pkl', 'rb') as f:
+    with open(scaler_path, 'rb') as f:
         scaler = pickle.load(f)
-    with open('label_encoder.pkl', 'rb') as f:
+    with open(encoder_path, 'rb') as f:
         label_encoder = pickle.load(f)
-    with open('feature_names.pkl', 'rb') as f:
+    with open(features_path, 'rb') as f:
         feature_names = pickle.load(f)
-    with open('model_metadata.pkl', 'rb') as f:
+    with open(metadata_path, 'rb') as f:
         metadata = pickle.load(f)
     
     # Get list of valid countries
@@ -47,8 +60,13 @@ try:
     print(f"✅ Best Model: {metadata['best_model_name']}")
     print(f"✅ Test MSE: {metadata['test_mse']:.4f}")
     print(f"✅ Test R²: {metadata['test_r2']:.4f}")
+    print(f"✅ Valid countries: {len(valid_countries)}")
 except Exception as e:
     print(f"❌ Error loading model: {e}")
+    print(f"❌ Current directory: {os.getcwd()}")
+    print(f"❌ BASE_DIR: {BASE_DIR}")
+    import traceback
+    traceback.print_exc()
     raise
 
 
