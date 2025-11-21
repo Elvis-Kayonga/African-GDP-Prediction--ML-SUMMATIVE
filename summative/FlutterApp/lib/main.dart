@@ -66,7 +66,7 @@ class _PredictionScreenState extends State<PredictionScreen> {
   bool hasError = false;
   
   // API URL - Render deployment
-  final String apiUrl = 'https://african-gdp-api.onrender.com/predict';
+  final String apiUrl = 'https://african-gdp-api-qlax.onrender.com/predict';
   
   // Make prediction
   Future<void> makePrediction() async {
