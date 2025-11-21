@@ -17,6 +17,62 @@ import sys
 print(f"Python version: {sys.version}")
 print(f"NumPy version: {np.__version__}")
 
+
+# Define the custom LinearRegressionGD class (needed for unpickling)
+class LinearRegressionGD:
+    """
+    Vectorized Linear Regression using Gradient Descent
+    Optimized for speed using NumPy vectorization
+    """
+    
+    def __init__(self, learning_rate=0.01, iterations=1000):
+        self.learning_rate = learning_rate
+        self.iterations = iterations
+        self.weights = None
+        self.bias = None
+        self.train_loss_history = []
+        self.test_loss_history = []
+    
+    def fit(self, X_train, y_train, X_test=None, y_test=None):
+        """Fit the model using gradient descent"""
+        n_samples, n_features = X_train.shape
+        self.weights = np.zeros(n_features)
+        self.bias = 0
+        
+        for i in range(self.iterations):
+            # Predictions
+            y_pred = X_train @ self.weights + self.bias
+            
+            # Compute gradients (vectorized)
+            dw = (2/n_samples) * (X_train.T @ (y_pred - y_train))
+            db = (2/n_samples) * np.sum(y_pred - y_train)
+            
+            # Update parameters
+            self.weights -= self.learning_rate * dw
+            self.bias -= self.learning_rate * db
+            
+            # Calculate losses
+            train_loss = np.mean((y_pred - y_train) ** 2)
+            self.train_loss_history.append(train_loss)
+            
+            if X_test is not None and y_test is not None:
+                y_test_pred = X_test @ self.weights + self.bias
+                test_loss = np.mean((y_test_pred - y_test) ** 2)
+                self.test_loss_history.append(test_loss)
+        
+        return self
+    
+    def predict(self, X):
+        """Make predictions"""
+        return X @ self.weights + self.bias
+    
+    def score(self, X, y):
+        """Calculate R² score"""
+        y_pred = self.predict(X)
+        ss_total = np.sum((y - np.mean(y)) ** 2)
+        ss_residual = np.sum((y - y_pred) ** 2)
+        return 1 - (ss_residual / ss_total)
+
 # Initialize FastAPI app
 app = FastAPI(
     title="African GDP Growth Prediction API",
