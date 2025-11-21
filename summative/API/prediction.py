@@ -5,11 +5,17 @@ Predicts GDP growth rates for African countries based on economic indicators
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 import pickle
 import numpy as np
 from typing import List
 import uvicorn
+import os
+import sys
+
+# Print Python version for debugging
+print(f"Python version: {sys.version}")
+print(f"NumPy version: {np.__version__}")
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -122,7 +128,8 @@ class EconomicIndicators(BaseModel):
         description="African country name (e.g., 'Nigeria', 'South Africa', 'Kenya')"
     )
     
-    @validator('country')
+    @field_validator('country')
+    @classmethod
     def validate_country(cls, v):
         """Validate that the country is in the valid list"""
         if v not in valid_countries:
