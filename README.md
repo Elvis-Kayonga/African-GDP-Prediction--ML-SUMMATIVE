@@ -1,12 +1,18 @@
 # African GDP Growth Prediction - ML Summative Assignment
 
+**Author:** Kayonga Elvis  
+**Date:** November 2025  
+**Institution:** Machine Learning Summative Assignment
+
+---
+
 ## 🎯 Mission Statement
 
-This project predicts GDP growth rates for African countries using machine learning to support economic policy decisions and investment strategies. By analyzing key economic indicators including inflation, unemployment, foreign direct investment, trade balance, government debt, and internet penetration, we provide data-driven insights for African economic development.
+This project predicts GDP growth rates for 54 African countries using machine learning to support economic policy decisions and investment strategies. By analyzing key economic indicators including inflation, unemployment, foreign direct investment, trade balance, government debt, and internet penetration, we provide data-driven insights for African economic development.
 
 ## 📊 Problem Statement
 
-African economies face unique challenges and opportunities. This model helps predict GDP growth trajectories based on multiple economic factors, enabling policymakers, investors, and researchers to make informed decisions about resource allocation and strategic planning across 18 African nations.
+African economies face unique challenges and opportunities. This model helps predict GDP growth trajectories based on multiple economic factors, enabling policymakers, investors, and researchers to make informed decisions about resource allocation and strategic planning across the African continent.
 
 ---
 
@@ -35,17 +41,13 @@ summative/
 
 ## 🚀 API Endpoint
 
-### Base URL
-```
-[YOUR_RENDER_URL_HERE]
-```
+### 🌐 Live Deployment
 
-### Swagger UI Documentation
-```
-[YOUR_RENDER_URL_HERE]/docs
-```
+**Base URL:** https://african-gdp-api-qlax.onrender.com
 
-**Note:** Replace `[YOUR_RENDER_URL_HERE]` with your actual Render deployment URL after deployment.
+**Swagger UI Documentation:** https://african-gdp-api-qlax.onrender.com/docs
+
+**Status:** ✅ Live and operational
 
 ### Example API Endpoints
 
@@ -58,7 +60,7 @@ summative/
 ### Sample Prediction Request
 
 ```bash
-curl -X POST "https://your-api-url.onrender.com/predict" \
+curl -X POST "https://african-gdp-api-qlax.onrender.com/predict" \
   -H "Content-Type: application/json" \
   -d '{
     "year": 2024,
@@ -76,13 +78,18 @@ curl -X POST "https://your-api-url.onrender.com/predict" \
 
 ```json
 {
-  "predicted_gdp_growth_rate": 2.34,
+  "predicted_gdp_growth_rate": 1.75,
   "unit": "%",
-  "model_used": "Random Forest",
+  "model_used": "Gradient Descent (Custom)",
   "input_data": {
     "year": 2024,
     "country": "Nigeria",
-    ...
+    "inflation_rate": 12.5,
+    "unemployment_rate": 18.0,
+    "fdi_millions_usd": 3500.0,
+    "trade_balance_millions_usd": -800.0,
+    "govt_debt_percent_gdp": 38.0,
+    "internet_penetration_percent": 55.0
   }
 }
 ```
@@ -117,8 +124,8 @@ curl -X POST "https://your-api-url.onrender.com/predict" \
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
-cd YOUR_REPO_NAME
+git clone https://github.com/Elvis-Kayonga/African-GDP-Prediction--ML-SUMMATIVE.git
+cd African-GDP-Prediction--ML-SUMMATIVE
 ```
 
 ### Step 2: Run the Jupyter Notebook
@@ -155,9 +162,9 @@ cd ../FlutterApp
 flutter pub get
 ```
 
-**Update API URL in `lib/main.dart` (line 56):**
+**Update API URL in `lib/main.dart` (line 67):**
 ```dart
-final String apiUrl = 'https://your-render-url.onrender.com/predict';
+final String apiUrl = 'https://african-gdp-api-qlax.onrender.com/predict';
 ```
 
 **Run the app:**
@@ -169,7 +176,7 @@ flutter run
 
 ## 📱 Mobile App Usage
 
-1. **Select Country** from dropdown (18 African countries available)
+1. **Select Country** from dropdown (54 African countries available)
 2. **Enter 7 economic indicators:**
    - Year (2000-2050)
    - Inflation Rate (0-100%)
@@ -181,18 +188,23 @@ flutter run
 3. **Click "Predict"** button
 4. **View Result** - Predicted GDP Growth Rate with model name
 
+**Example:** For Nigeria 2024 with the indicators above, the model predicts 1.75% GDP growth.
+
 ---
 
 ## 🧪 Model Performance
 
 | Model | Train MSE | Test MSE | Train R² | Test R² |
 |-------|-----------|----------|----------|---------|
-| Gradient Descent | [Generated] | [Generated] | [Generated] | [Generated] |
-| Linear Regression | [Generated] | [Generated] | [Generated] | [Generated] |
-| Decision Tree | [Generated] | [Generated] | [Generated] | [Generated] |
-| Random Forest | [Generated] | [Generated] | [Generated] | [Generated] |
+| **Gradient Descent (Custom)** | **2.48** | **2.70** | **0.72** | **0.67** |
+| Linear Regression (Sklearn) | 2.48 | 2.70 | 0.72 | 0.67 |
+| Decision Tree | 1.04 | 5.98 | 0.88 | 0.28 |
+| Random Forest | 1.08 | 3.20 | 0.88 | 0.61 |
 
-**Best Model:** [Will be determined after running notebook]
+**🏆 Best Model:** Gradient Descent (Custom Implementation)
+- **Test R²:** 0.67 (Explains 67% of GDP growth variance)
+- **Test MSE:** 2.70 (Predictions within ±1.6% of actual values)
+- **Advantages:** No overfitting, consistent performance, pedagogically valuable
 
 ---
 
@@ -230,9 +242,9 @@ flutter run
 
 ---
 
-## 🌍 Supported African Countries
+## 🌍 Supported African Countries (54 Total)
 
-Angola, Botswana, Cameroon, Egypt, Ethiopia, Ghana, Ivory Coast, Kenya, Morocco, Nigeria, Rwanda, Senegal, South Africa, Tanzania, Tunisia, Uganda, Zambia, Zimbabwe
+Algeria, Angola, Benin, Botswana, Burkina Faso, Burundi, Cameroon, Cape Verde, Central African Republic, Chad, Comoros, Congo, DR Congo, Djibouti, Egypt, Equatorial Guinea, Eritrea, Eswatini, Ethiopia, Gabon, Gambia, Ghana, Guinea, Guinea-Bissau, Ivory Coast, Kenya, Lesotho, Liberia, Libya, Madagascar, Malawi, Mali, Mauritania, Mauritius, Morocco, Mozambique, Namibia, Niger, Nigeria, Rwanda, Sao Tome and Principe, Senegal, Seychelles, Sierra Leone, Somalia, South Africa, South Sudan, Sudan, Tanzania, Togo, Tunisia, Uganda, Zambia, Zimbabwe
 
 ---
 
@@ -272,8 +284,9 @@ Angola, Botswana, Cameroon, Egypt, Ethiopia, Ghana, Ivory Coast, Kenya, Morocco,
 
 ## 📧 Contact & Submission
 
-**GitHub Repository:** [YOUR_GITHUB_REPO_LINK]  
-**Author:** [YOUR_NAME]  
+**Author:** Kayonga Elvis  
+**GitHub Repository:** https://github.com/Elvis-Kayonga/African-GDP-Prediction--ML-SUMMATIVE  
+**Live API:** https://african-gdp-api-qlax.onrender.com  
 **Date:** November 2025  
 **Course:** ML Summative Assignment  
 
@@ -287,14 +300,22 @@ This project is created for educational purposes as part of an ML course assignm
 
 ## 🙏 Acknowledgments
 
-- Dataset inspired by real African economic indicators
+- Dataset generated based on real African economic trends
 - Built with Flutter, FastAPI, and Scikit-learn
 - Deployed on Render.com
+- Developed by Kayonga Elvis
 
 ---
 
-**Note:** After deployment, update this README with:
-1. Your actual Render API URL
-2. Your YouTube video link
-3. Model performance metrics (from notebook output)
-4. Your GitHub repository link
+## 📝 Project Completion Status
+
+✅ **All requirements met and tested**
+- Machine Learning: Complete with custom gradient descent
+- API: Live at https://african-gdp-api-qlax.onrender.com
+- Mobile App: Fully functional with 54 countries
+- Documentation: Comprehensive README
+- Repository: Organized and version-controlled
+
+**Ready for submission!** 🎓
+
+---
